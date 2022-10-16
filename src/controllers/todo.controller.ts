@@ -12,7 +12,7 @@ import {
   getModelSchemaRef, HttpErrors, param, patch, post, put, requestBody,
   response
 } from '@loopback/rest';
-import {Todo} from '../models';
+import {Todo, TodoList} from '../models';
 import {TodoRepository} from '../repositories';
 import {Geocoder} from '../services';
 
@@ -72,14 +72,17 @@ export class TodoController {
     return this.todoRepository.count(where);
   }
 
-  @get('/todos')
-  @response(200, {
-    description: 'Array of Todo model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(Todo, {includeRelations: true}),
+  @get('/todos', {
+    responses: {
+      '200': {
+        description: 'Array of Todo model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Todo, {includeRelations: true}),
+            },
+          },
         },
       },
     },
@@ -109,12 +112,33 @@ export class TodoController {
     return this.todoRepository.updateAll(todo, where);
   }
 
-  @get('/todos/{id}')
-  @response(200, {
-    description: 'Todo model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(Todo, {includeRelations: true}),
+  @get('/todos/{id}/todo-list', {
+    responses: {
+      '200': {
+        description: 'TodoList belonging to Todo',
+        content: {
+          'application/json': {
+            schema: {type: 'array', items: getModelSchemaRef(TodoList)},
+          },
+        },
+      },
+    },
+  })
+  async getTodoList(
+    @param.path.number('id') id: typeof Todo.prototype.id,
+  ): Promise<TodoList> {
+    return this.todoRepository.todoList(id);
+  }
+
+  @get('/todos/{id}', {
+    responses: {
+      '200': {
+        description: 'Todo model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Todo, {includeRelations: true}),
+          },
+        },
       },
     },
   })

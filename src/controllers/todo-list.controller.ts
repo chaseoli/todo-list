@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {TodoList} from '../models';
 import {TodoListRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {TodoListRepository} from '../repositories';
 export class TodoListController {
   constructor(
     @repository(TodoListRepository)
-    public todoListRepository : TodoListRepository,
-  ) {}
+    public todoListRepository: TodoListRepository,
+  ) { }
 
   @post('/todo-lists')
   @response(200, {
@@ -58,14 +52,17 @@ export class TodoListController {
     return this.todoListRepository.count(where);
   }
 
-  @get('/todo-lists')
-  @response(200, {
-    description: 'Array of TodoList model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(TodoList, {includeRelations: true}),
+  @get('/todo-lists', {
+    responses: {
+      '200': {
+        description: 'Array of TodoList model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(TodoList, {includeRelations: true}),
+            },
+          },
         },
       },
     },
@@ -95,12 +92,15 @@ export class TodoListController {
     return this.todoListRepository.updateAll(todoList, where);
   }
 
-  @get('/todo-lists/{id}')
-  @response(200, {
-    description: 'TodoList model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(TodoList, {includeRelations: true}),
+  @get('/todo-lists/{id}', {
+    responses: {
+      '200': {
+        description: 'TodoList model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(TodoList, {includeRelations: true}),
+          },
+        },
       },
     },
   })
