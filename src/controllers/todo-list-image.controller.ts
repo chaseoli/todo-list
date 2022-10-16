@@ -4,27 +4,39 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {TodoListImage} from '../models';
+import {TodoList, TodoListImage} from '../models';
 import {TodoListImageRepository} from '../repositories';
 
 export class TodoListImageController {
   constructor(
     @repository(TodoListImageRepository)
-    public todoListImageRepository : TodoListImageRepository,
-  ) {}
+    public todoListImageRepository: TodoListImageRepository,
+  ) { }
+
+  @get('/todo-list-images/{id}/todo-list', {
+    responses: {
+      '200': {
+        description: 'TodoList belonging to TodoListImage',
+        content: {
+          'application/json': {
+            schema: {type: 'array', items: getModelSchemaRef(TodoList)},
+          },
+        },
+      },
+    },
+  })
+  async getTodoList(
+    @param.path.number('id') id: typeof TodoListImage.prototype.id,
+  ): Promise<TodoList> {
+    return this.todoListImageRepository.todoList(id);
+  }
 
   @post('/todo-list-images')
   @response(200, {
