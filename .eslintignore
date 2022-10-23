@@ -2,3 +2,5 @@ node_modules/
 dist/
 coverage/
 .eslintrc.js
+todo.model.ts
+todo-list-image.model.ts

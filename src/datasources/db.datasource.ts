@@ -3,9 +3,13 @@ import {juggler} from '@loopback/repository';
 
 const config = {
   name: 'db',
-  connector: 'memory',
-  localStorage: '',
-  file: './data/db.json'
+  connector: 'mssql',
+  url: process.env.AZ_SQL_URL,
+  host: process.env.AZ_SQL_HOST,
+  port: process.env.AZ_SQL_PORT,
+  user: process.env.AZ_SQL_USER,
+  password: process.env.AZ_SQL_PASSWORD,
+  database: process.env.AZ_SQL_DATABASE
 };
 
 // Observe application's life cycle to disconnect the datasource when
