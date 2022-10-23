@@ -3,6 +3,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Development",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "preLaunchTask": "rebuild",
+      "program": "${workspaceFolder}/dist/index.js",
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Program",
       "skipFiles": [
         "<node_internals>/**"

@@ -4,9 +4,9 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'db',
   connector: 'mssql',
-  url: process.env.AZ_SQL_URL,
+  url: '',
   host: process.env.AZ_SQL_HOST,
-  port: process.env.AZ_SQL_PORT,
+  port: 1433,
   user: process.env.AZ_SQL_USER,
   password: process.env.AZ_SQL_PASSWORD,
   database: process.env.AZ_SQL_DATABASE
@@ -26,6 +26,7 @@ export class DbDataSource extends juggler.DataSource
     @inject('datasources.config.db', {optional: true})
     dsConfig: object = config,
   ) {
+    console.log(`Connecting to ${process.env.AZ_SQL_DATABASE}...`);
     super(dsConfig);
   }
 }
