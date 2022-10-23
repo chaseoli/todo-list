@@ -9,6 +9,12 @@
       ],
       "preLaunchTask": "rebuild",
       "program": "${workspaceFolder}/dist/index.js",
+      "runtimeArgs": [
+        "-r",
+        "dotenv/config",
+        "-r",
+        "${workspaceRoot}/node_modules/source-map-support/register"
+      ],
     },
     {
       "type": "node",
