@@ -3,6 +3,22 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Development",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "preLaunchTask": "rebuild",
+      "program": "${workspaceFolder}/dist/index.js",
+      "runtimeArgs": [
+        "-r",
+        "dotenv/config",
+        "-r",
+        "${workspaceRoot}/node_modules/source-map-support/register"
+      ],
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Program",
       "skipFiles": [
         "<node_internals>/**"

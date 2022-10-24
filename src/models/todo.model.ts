@@ -1,7 +1,19 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {TodoList} from './todo-list.model';
 
-@model()
+@model({
+  settings: {
+    // mssql: {table: 'todo'},
+    foreignKeys: {
+      fk_todo_todoListId: {
+        name: 'fk_todo_todoListId',
+        entity: 'TodoList',
+        entityKey: 'id',
+        foreignKey: 'todoListId',
+      },
+    },
+  },
+})
 export class Todo extends Entity {
   @property({
     type: 'number',

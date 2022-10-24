@@ -1,8 +1,12 @@
-import {Entity, model, property, hasMany, hasOne} from '@loopback/repository';
-import {Todo} from './todo.model';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {TodoListImage} from './todo-list-image.model';
+import {Todo} from './todo.model';
 
-@model()
+@model({
+  settings: {
+    // mssql: {table: 'todo_list'}
+  }
+})
 export class TodoList extends Entity {
   @property({
     type: 'number',
