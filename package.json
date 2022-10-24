@@ -28,7 +28,7 @@
     "docker:build": "docker build -t todo-list .",
     "docker:run": "docker run -p 3000:3000 -d todo-list",
     "premigrate": "npm run build",
-    "migrate": "node ./dist/migrate",
+    "migrate": "node -r dotenv/config ./dist/migrate",
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run rebuild",

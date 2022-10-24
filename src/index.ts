@@ -18,6 +18,7 @@ if (require.main === module) {
   // Run the application
   const config = {
     rest: {
+      // cors: {origin: false}, // enable all cors
       port: +(process.env.PORT ?? 3000),
       host: process.env.HOST,
       // The `gracePeriodForClose` provides a graceful close for http/https
@@ -32,6 +33,11 @@ if (require.main === module) {
       },
     },
   };
+
+  if (process.env.CORS) {
+    // TODO: configure cors
+  }
+
   main(config).catch(err => {
     console.error('Cannot start the application.', err);
     process.exit(1);

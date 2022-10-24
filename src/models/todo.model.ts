@@ -3,6 +3,7 @@ import {TodoList} from './todo-list.model';
 
 @model({
   settings: {
+    // mssql: {table: 'todo'},
     foreignKeys: {
       fk_todo_todoListId: {
         name: 'fk_todo_todoListId',
